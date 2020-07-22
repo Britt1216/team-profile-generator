@@ -31,7 +31,11 @@ function menu () {
                     type: "input",
                     name: "managerId",
                     message: "What is the manager's ID?",
-                    // validate:
+                    validate: answer => {
+                        if (answer !== "") {
+                            return true
+                        }
+                    }
                 }, {
                 type: "input",
                 name: "managerEmail",
@@ -100,6 +104,34 @@ function menu () {
         })
     }
     // add intern
+    function addIntern() {
+        inquirer.prompt([{
+            type: "input",
+            name: "internName",
+            message: "What is your intern's name?",
+            // validate:
+        },{
+        type: "input",
+        name:"internID",
+        message:"What is your intern's ID?",
+        }, {
+            type: "input",
+            name: "internEmail",
+            message:"What is your intern's email?",
+            // validate:
+        }, {
+            type: "input",
+            name: "internSchool",
+            message: "What is your intern's school?",
+        }
+        .then(responses => {
+            const intern = new Intern(responses.internName, responses.internID, responses.internemail, response.internSchool)
+            teamMembers.push(intern)
+            idArray.push(responses.internID)
+            createTeam()
+        })
+    ])
+    }
     function buildTeam() {
         if(!fs.existsSync(OUTPUT_DIR)) {
             fs.mkdirSync(OUTPUT_DIR) 
